@@ -9,10 +9,12 @@ import { createQuestionSet } from "@/lib/db";
 
 export default function Home() {
   const { 
+    creatorName,
     recipientName, 
     questions, 
     addQuestion, 
-    removeQuestion, 
+    removeQuestion,
+    setCreatorName, 
     setRecipientName,
     getQuestionData 
   } = useQuestionStore();
@@ -133,6 +135,10 @@ export default function Home() {
       alert("Please add at least one question!");
       return;
     }
+    if (!creatorName.trim()) {
+      alert("Please enter your name!");
+      return;
+    }
     if (!recipientName.trim()) {
       alert("Please enter recipient's name!");
       return;
@@ -142,6 +148,8 @@ export default function Home() {
 
     try {
       const questionData = getQuestionData();
+      console.log('📋 Question data being sent:', questionData); // Debug log
+      
       const result = await createQuestionSet(questionData);
       
       if (result.success) {
@@ -374,6 +382,43 @@ export default function Home() {
               <h2 style={{ fontSize: "1.8rem", fontWeight: "700" }}>
                 Create Questions
               </h2>
+            </div>
+
+            {/* Creator Name */}
+            <div style={{ marginBottom: "1.5rem" }}>
+              <label style={{
+                display: "block",
+                marginBottom: "0.5rem",
+                color: "#b0b0b0",
+                fontSize: "0.9rem"
+              }}>
+                Your Name 👤
+              </label>
+              <input
+                type="text"
+                value={creatorName}
+                onChange={(e) => setCreatorName(e.target.value)}
+                placeholder="e.g., John, Sarah, Alex..."
+                style={{
+                  width: "100%",
+                  padding: "1rem",
+                  background: "rgba(255,255,255,0.05)",
+                  border: "1px solid rgba(255,255,255,0.1)",
+                  borderRadius: "15px",
+                  color: "#fff",
+                  fontSize: "1rem",
+                  outline: "none",
+                  transition: "all 0.3s ease"
+                }}
+                onFocus={(e) => {
+                  e.target.style.border = "1px solid rgba(255,152,0,0.5)";
+                  e.target.style.background = "rgba(255,255,255,0.08)";
+                }}
+                onBlur={(e) => {
+                  e.target.style.border = "1px solid rgba(255,255,255,0.1)";
+                  e.target.style.background = "rgba(255,255,255,0.05)";
+                }}
+              />
             </div>
 
             {/* Recipient Name */}
