@@ -1,22 +1,15 @@
-
 "use client";
+
 import { motion, AnimatePresence } from "framer-motion";
-import { FaHeart, FaUsers } from "react-icons/fa";
+import { FaHeart, FaComments, FaPaperPlane, FaUsers, FaRocket } from "react-icons/fa";
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
-export default function MaintenancePage() {
+export default function Maintenance() {
   const canvasRef = useRef(null);
-  const [showPopup, setShowPopup] = useState(false);
-
-  // Show popup after 2 seconds
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowPopup(true);
-    }, 2000);
-
-    return () => clearTimeout(timer);
-  }, []);
+  const [showPopup, setShowPopup] = useState(true);
+  const router = useRouter();
 
   // Animated particles background
   useEffect(() => {
@@ -101,6 +94,13 @@ export default function MaintenancePage() {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  const handleExploreNow = () => {
+    setShowPopup(false);
+    setTimeout(() => {
+      router.push('/');
+    }, 300);
+  };
 
   return (
     <div style={{
@@ -490,7 +490,7 @@ export default function MaintenancePage() {
           }}>
             <motion.div
               initial={{ width: "0%" }}
-              animate={{ width: "95%" }}
+              animate={{ width: "65%" }}
               transition={{ duration: 2, delay: 1.5 }}
               style={{
                 height: "100%",
@@ -503,7 +503,7 @@ export default function MaintenancePage() {
 
       </div>
 
-      {/* Launch Popup Modal - Shows after 2 seconds */}
+      {/* Launch Popup Modal */}
       <AnimatePresence>
         {showPopup && (
           <motion.div
@@ -673,35 +673,57 @@ export default function MaintenancePage() {
                 </div>
               </motion.div>
 
-              {/* CTA Button - Close popup, stay on page */}
-              <motion.button
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                onClick={() => setShowPopup(false)}
-                style={{
-                  width: "100%",
-                  padding: "1rem",
-                  background: "transparent",
-                  border: "2px solid rgba(255,255,255,0.2)",
-                  borderRadius: "50px",
-                  color: "#999",
-                  fontSize: "1rem",
-                  fontWeight: "600",
-                  cursor: "pointer",
-                  transition: "all 0.3s ease",
-                  marginBottom: "1rem"
-                }}
-              >
-                Okay, Got It! ✨
-              </motion.button>
-
-              <p style={{
-                fontSize: "0.85rem",
-                color: "#666",
-                marginTop: "1rem"
+              {/* CTA Buttons */}
+              <div style={{ 
+                display: "flex", 
+                gap: "1rem",
+                flexDirection: "column"
               }}>
-                Click "Discover More" button to learn about the platform
-              </p>
+                <motion.button
+                  whileHover={{ scale: 1.05, boxShadow: "0 20px 40px rgba(255,152,0,0.5)" }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={handleExploreNow}
+                  style={{
+                    width: "100%",
+                    padding: "1.2rem",
+                    background: "linear-gradient(135deg, #ff9800, #ff5722)",
+                    border: "none",
+                    borderRadius: "50px",
+                    color: "#fff",
+                    fontSize: "1.2rem",
+                    fontWeight: "700",
+                    cursor: "pointer",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    gap: "0.8rem",
+                    boxShadow: "0 10px 30px rgba(255,152,0,0.4)",
+                    transition: "all 0.3s ease"
+                  }}
+                >
+                  <FaRocket /> Explore Now
+                </motion.button>
+
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={() => setShowPopup(false)}
+                  style={{
+                    width: "100%",
+                    padding: "1rem",
+                    background: "transparent",
+                    border: "2px solid rgba(255,255,255,0.2)",
+                    borderRadius: "50px",
+                    color: "#999",
+                    fontSize: "1rem",
+                    fontWeight: "600",
+                    cursor: "pointer",
+                    transition: "all 0.3s ease"
+                  }}
+                >
+                  Stay Here
+                </motion.button>
+              </div>
             </motion.div>
           </motion.div>
         )}

@@ -1,6 +1,14 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  /* config options here */
-};
-
-export default nextConfig;
+  reactStrictMode: true,
+  images: {
+    domains: ['firebasestorage.googleapis.com'],
+  },
+  experimental: {
+    turbo: false
+  },
+  // Suppress console warnings in production
+  compiler: {
+    removeConsole: process.env.NODE_ENV === 'production',
+  },
+}
