@@ -12,16 +12,9 @@
 // }
 
 import AnswerClient from "./AnswerClient";
-import { getAllQuestionSetIds } from "@/lib/db"; // You'd need to create this function
 
-export async function generateStaticParams() {
-  // Fetch all existing question set IDs from your database
-  const ids = await getAllQuestionSetIds();
-  
-  return ids.map((id) => ({
-    id: id,
-  }));
-}
+export const dynamic = 'force-dynamic';
+
 
 export default function Page() {
   return <AnswerClient />;

@@ -11,23 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
-      # 1. Setup Node.js version 20 (Required for modern Next.js)
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: 'npm'
-
-      # 2. Install dependencies (Crucial: This fixes the "next: not found" error)
-      - name: Install Dependencies
-        run: npm ci
-
-      # 3. Build the app
-      - name: Build Next.js App
-        run: npm run build
-
-      # 4. Deploy to Firebase
+      - run: npm ci && npm run build
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
