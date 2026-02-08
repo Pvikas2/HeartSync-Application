@@ -174,10 +174,13 @@ export default function Dashboard() {
             fontWeight: "800",
             background: "linear-gradient(135deg, #ff9800, #03a9f4)",
             WebkitBackgroundClip: "text",
-            WebkitTextFillColor: "transparent"
+            WebkitTextFillColor: "transparent",
+            display: "flex",
+            flexDirection: "row",
+            gap: '0.75rem'
           }}
         >
-          💝 HeartSync
+          <img src="/heartsync_logo.svg" alt="HeartSync Logo" style={{ width: "40px", height: "40px", marginRight: "10px" }}></img> HeartSync
         </motion.div>
         
         <div style={{ display: "flex", gap: "1.5rem" }}>
