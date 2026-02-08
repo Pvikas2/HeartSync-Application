@@ -16,6 +16,11 @@
   to = "/index.html"
   status = 200
 
+[[redirects]]
+  from = "/answer/*"
+  to = "/answer/[id]/index.html"
+  status = 200  
+
 # Headers for security
 [[headers]]
   for = "/*"

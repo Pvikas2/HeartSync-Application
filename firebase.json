@@ -10,7 +10,12 @@
       {
         "source": "**",
         "destination": "/index.html"
+      },
+      {
+        "source": "/answer/**",
+        "destination": "/answer/[id]/index.html"
       }
+
     ]
   }
 }
