@@ -1,14 +1,20 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: 'export',
   reactStrictMode: true,
   images: {
-    domains: ['firebasestorage.googleapis.com'],
+    unoptimized: true,
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'firebasestorage.googleapis.com',
+      },
+    ],
   },
-  experimental: {
-    turbo: false
-  },
-  // Suppress console warnings in production
+  // Remove the 'experimental: { turbo }' block as it's invalid now
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',
   },
 }
+
+export default nextConfig;

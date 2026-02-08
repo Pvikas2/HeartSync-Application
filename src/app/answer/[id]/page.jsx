@@ -9,6 +9,12 @@ import { getQuestionSet, submitAnswers } from "@/lib/db";
 import { QuestionRenderer } from "@/components/QuestionTypes";
 import RespondentInfoForm from "@/components/RespondentInforForm";
 
+export const dynamic = 'force-static';
+
+export async function generateStaticParams() {
+  return []; // Tells Next.js to build these pages on-demand/client-side
+}
+
 export default function AnswerPage() {
   const params = useParams();
   const router = useRouter();
